@@ -193,19 +193,16 @@ pixel/
 |---|---|---|---|---|
 | ۰ | زیرساخت و راه‌اندازی | ✅ انجام‌شده (لوکال) | — | Docker، monorepo، Dockerfile‌ها آماده؛ استقرار سرور و firewall/backup باقی مانده |
 | ۱ | هسته اصلی و شناسنامه (MVP) | ✅ انجام‌شده | — | Auth OTP، پروفایل‌ها، admin، upload، فرانت ۱۲ صفحه، seed، تست‌ها؛ pg_trgm index و تست میدانی باقی مانده |
-| ۲ | بازار هوشمند کشاورزی | ⬜ شروع نشده | — | — |
-| ۳ | CMS و محتوا | ⬜ شروع نشده | — | — |
-| ۴ | هوش مصنوعی | ⬜ شروع نشده | — | — |
-| ۵ | بهینه‌سازی و مقیاس‌پذیری | ⬜ شروع نشده | — | — |
+| ۲ | بازار هوشمند کشاورزی | ✅ انجام‌شده | خرداد ۱۴۰۵ | Schema + Router (product, RFQ, order, chat, review, favorite, payment) + Frontend (market, product detail, RFQ, messages, dashboard) |
+| ۳ | CMS و محتوا | ✅ انجام‌شده | خرداد ۱۴۰۵ | Schema + Router (articles, reports, market prices, ads, networks, inquiries, ranking) + Frontend (news, reports, networks, contact) |
+| ۴ | هوش مصنوعی | ✅ انجام‌شده | خرداد ۱۴۰۵ | FastAPI service (chatbot, price prediction, image classification, disease detection, fraud, risk, recommendation) + tRPC router + Frontend + pytest |
+| ۵ | بهینه‌سازی و مقیاس‌پذیری | ✅ انجام‌شده | خرداد ۱۴۰۵ | PWA + SW + SEO + sitemap + REST API (trpc-openapi) + Socket.io + BullMQ + Redis cache + DB indexes + health/metrics + dashboards with Recharts |
 
 ### اولویت‌بندی گام‌های بعدی
 
 1. **استقرار روی سرور** — Deploy پروژه روی ۱۹۲.۱۶۸.۸۵.۹۲ با Docker Compose، اجرای migration و seed، تست سرویس‌ها
-2. **تکمیل pg_trgm** — Migration برای indexهای trgm/unaccent روی فارسی
-3. **فاز ۲ — بازار هوشمند** — محصولات، RFQ، سفارش، چت، ارزیابی
-4. **فاز ۳ — CMS و محتوا** — مقالات، گزارش بازار، تبلیغات، شبکه‌ها
-5. **فاز ۴ — هوش مصنوعی** — چت‌بات، پیش‌بینی قیمت، تشخیص تصویر
-6. **فاز ۵ — بهینه‌سازی** — PWA، سئو، داشبورد، لجستیک، API عمومی
+2. **تست میدانی** — تست کامل جریان‌های کاربری با کاربران واقعی
+3. **پیکربندی نهایی** — تنظیم متغیرهای محیطی تولید، SSL، Nginx، firewall
 
 ---
 

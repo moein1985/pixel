@@ -79,3 +79,45 @@ export async function isTokenBlacklisted(token: string): Promise<boolean> {
   const exists = await r.exists(`bl:${token}`);
   return exists === 1;
 }
+
+// ─── Generic cache helpers ──────────────────────────────────
+
+export async function cacheGet<T>(key: string): Promise<T | null> {
+  try {
+    const r = await getRedis();
+    const data = await r.get(`cache:${key}`);
+    return data ? (JSON.parse(data) as T) : null;
+  } catch {
+    return null;
+  }
+}
+
+export async function cacheSet(key: string, value: unknown, ttlSeconds: number): Promise<void> {
+  try {
+    const r = await getRedis();
+    await r.set(`cache:${key}`, JSON.stringify(value), "EX", ttlSeconds);
+  } catch (err) {
+    console.error("[Redis] Cache set error:", (err as Error).message);
+  }
+}
+
+export async function cacheDel(key: string): Promise<void> {
+  try {
+    const r = await getRedis();
+    await r.del(`cache:${key}`);
+  } catch {
+    // ignore
+  }
+}
+
+export async function cacheDelPattern(pattern: string): Promise<void> {
+  try {
+    const r = await getRedis();
+    const keys = await r.keys(`cache:${pattern}`);
+    if (keys.length > 0) {
+      await r.del(...keys);
+    }
+  } catch {
+    // ignore
+  }
+}
