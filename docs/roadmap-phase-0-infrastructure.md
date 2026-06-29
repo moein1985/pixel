@@ -537,17 +537,17 @@ plink -ssh -batch -pw 1234321 moein@192.168.85.92 "docker exec -i pixel-postgres
 
 ### ۷-۳. چک‌لیست تأیید فاز ۰
 
-- [ ] Docker و Docker Compose نصب شده‌اند
-- [ ] مسیر `/opt/pixel/` با زیرمسیرها ایجاد شده
-- [ ] فایل `.env` با مقادیر امن ایجاد شده
-- [ ] PostgreSQL بالا و extensionها نصب شده‌اند
-- [ ] Redis بالا و پاسخ‌گو است
-- [ ] MinIO بالا و bucket ایجاد شده
-- [ ] Nginx بالا و routing درست کار می‌کند
-- [ ] Monorepo لوکال با Turborepo + pnpm راه‌اندازی شده
-- [ ] Dockerfileهای web, api, ai نوشته شده‌اند
-- [ ] تست backup/restore دیتابیس موفق بوده
-- [ ] firewall فعال و فقط پورت‌های ۲۲، ۸۰، ۴۴۳ باز هستند
+- [x] Docker و Docker Compose نصب شده‌اند
+- [ ] مسیر `/opt/pixel/` با زیرمسیرها ایجاد شده — هنوز روی سرور استقرار ندادیم
+- [ ] فایل `.env` با مقادیر امن ایجاد شده — فایل لوکال موجود، فایل سرور هنوز نه
+- [x] PostgreSQL بالا و extensionها نصب شده‌اند
+- [x] Redis بالا و پاسخ‌گو است
+- [x] MinIO بالا و bucket ایجاد شده
+- [x] Nginx بالا و routing درست کار می‌کند
+- [x] Monorepo لوکال با Turborepo + pnpm راه‌اندازی شده
+- [x] Dockerfileهای web, api, ai نوشته شده‌اند
+- [ ] تست backup/restore دیتابیس موفق بوده — هنوز انجام نشده
+- [ ] firewall فعال و فقط پورت‌های ۲۲، ۸۰، ۴۴۳ باز هستند — هنوز پیکربندی نشده
 
 ---
 

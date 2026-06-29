@@ -1,5 +1,6 @@
 import { Button, Card, CardContent, CardHeader, CardTitle, Badge } from "@pixel/ui";
 import { Sprout, Store, Building2, Truck, Search, MessageSquare } from "lucide-react";
+import Link from "next/link";
 
 export default function HomePage() {
   return (
@@ -13,8 +14,8 @@ export default function HomePage() {
             <span className="hidden text-sm text-gray-500 sm:inline">شناسنامه هوشمند کشاورزی</span>
           </div>
           <div className="flex items-center gap-3">
-            <Button variant="ghost" size="sm">ورود</Button>
-            <Button size="sm">ثبت‌نام</Button>
+            <Link href="/login"><Button variant="ghost" size="sm">ورود</Button></Link>
+            <Link href="/register"><Button size="sm">ثبت‌نام</Button></Link>
           </div>
         </div>
       </header>
@@ -29,8 +30,10 @@ export default function HomePage() {
             شناسنامه هوشمند کشاورزی، بازار هوشمند B2B، و خدمات مبتنی بر هوش مصنوعی برای کشاورزان، تأمین‌کنندگان و شرکت‌های کشاورزی ایران
           </p>
           <div className="mt-8 flex justify-center gap-4">
-            <Button size="lg">شروع کنید</Button>
-            <Button size="lg" variant="outline">بیشتر بدانید</Button>
+            <Link href="/register"><Button size="lg">شروع کنید</Button></Link>
+            <Link href="/farmers"><Button size="lg" variant="outline">کشاورزان</Button></Link>
+            <Link href="/suppliers"><Button size="lg" variant="outline">تأمین‌کنندگان</Button></Link>
+            <Link href="/companies"><Button size="lg" variant="outline">شرکت‌ها</Button></Link>
           </div>
         </div>
       </section>
