@@ -29,11 +29,13 @@ export default function HomePage() {
           <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-600">
             شناسنامه هوشمند کشاورزی، بازار هوشمند B2B، و خدمات مبتنی بر هوش مصنوعی برای کشاورزان، تأمین‌کنندگان و شرکت‌های کشاورزی ایران
           </p>
-          <div className="mt-8 flex justify-center gap-4">
+          <div className="mt-8 flex justify-center gap-4 flex-wrap">
             <Link href="/register"><Button size="lg">شروع کنید</Button></Link>
+            <Link href="/market"><Button size="lg" variant="outline">بازار</Button></Link>
             <Link href="/farmers"><Button size="lg" variant="outline">کشاورزان</Button></Link>
             <Link href="/suppliers"><Button size="lg" variant="outline">تأمین‌کنندگان</Button></Link>
             <Link href="/companies"><Button size="lg" variant="outline">شرکت‌ها</Button></Link>
+            <Link href="/ai/chat"><Button size="lg" variant="outline">دستیار هوشمند</Button></Link>
           </div>
         </div>
       </section>
@@ -139,8 +141,41 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="border-t bg-white py-8">
-        <div className="mx-auto max-w-7xl px-4 text-center text-sm text-gray-500">
-          <p>پیکسل — شناسنامه هوشمند کشاورزی © ۲۰۲۶</p>
+        <div className="mx-auto max-w-7xl px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-6">
+            <div>
+              <h3 className="font-bold text-gray-900 mb-3">بازار</h3>
+              <ul className="space-y-2 text-sm text-gray-500">
+                <li><Link href="/market" className="hover:text-pixel-700">محصولات</Link></li>
+                <li><Link href="/rfq/create" className="hover:text-pixel-700">ثبت درخواست خرید</Link></li>
+                <li><Link href="/suppliers" className="hover:text-pixel-700">تأمین‌کنندگان</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-900 mb-3">محتوا</h3>
+              <ul className="space-y-2 text-sm text-gray-500">
+                <li><Link href="/news" className="hover:text-pixel-700">اخبار و مقالات</Link></li>
+                <li><Link href="/reports" className="hover:text-pixel-700">گزارش بازار</Link></li>
+                <li><Link href="/networks" className="hover:text-pixel-700">شبکه‌های کشاورزی</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-900 mb-3">هوش مصنوعی</h3>
+              <ul className="space-y-2 text-sm text-gray-500">
+                <li><Link href="/ai/chat" className="hover:text-pixel-700">چت‌بات هوشمند</Link></li>
+                <li><Link href="/ai/price" className="hover:text-pixel-700">پیش‌بینی قیمت</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-900 mb-3">سایر</h3>
+              <ul className="space-y-2 text-sm text-gray-500">
+                <li><Link href="/contact" className="hover:text-pixel-700">تماس با ما</Link></li>
+                <li><Link href="/login" className="hover:text-pixel-700">ورود</Link></li>
+                <li><Link href="/register" className="hover:text-pixel-700">ثبت‌نام</Link></li>
+              </ul>
+            </div>
+          </div>
+          <p className="text-center text-sm text-gray-500">پیکسل — شناسنامه هوشمند کشاورزی © ۲۰۲۶</p>
         </div>
       </footer>
     </div>

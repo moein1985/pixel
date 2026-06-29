@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     redis_url: str = "redis://localhost:6379"
     ai_port: int = 8000
     node_api_url: str = "http://localhost:4000"
+    model_cache_dir: str = "/tmp/pixel-models"
 
     class Config:
         env_file = ".env"

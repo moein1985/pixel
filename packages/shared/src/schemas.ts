@@ -147,3 +147,158 @@ export const searchSchema = z.object({
   page: z.number().int().min(1).default(1),
   pageSize: z.number().int().min(1).max(100).default(20),
 });
+
+// ─── Article Schema ─────────────────────────────────────────
+
+export const createArticleSchema = z.object({
+  title: z.string().min(2).max(250),
+  excerpt: z.string().max(500).optional(),
+  content: z.string().min(1),
+  coverImageUrl: z.string().url().optional(),
+  category: z.enum(["news", "article", "report", "guideline", "announcement"]).optional(),
+  tags: z.array(z.string()).optional(),
+  isFeatured: z.boolean().optional(),
+  attachments: z.array(z.string().url()).optional(),
+});
+
+// ─── Review Schema ──────────────────────────────────────────
+
+export const createReviewSchema = z.object({
+  orderId: z.string().uuid(),
+  revieweeType: z.enum(["supplier", "product", "farmer", "company"]),
+  revieweeId: z.string().uuid(),
+  rating: z.number().int().min(1).max(5),
+  qualityRating: z.number().int().min(1).max(5).optional(),
+  deliveryRating: z.number().int().min(1).max(5).optional(),
+  communicationRating: z.number().int().min(1).max(5).optional(),
+  comment: z.string().max(2000).optional(),
+});
+
+// ─── Network Schema ─────────────────────────────────────────
+
+export const createNetworkSchema = z.object({
+  name: z.string().min(2).max(200),
+  description: z.string().max(5000).optional(),
+  networkType: z.enum(["regional", "crop_based", "cooperative", "general"]).optional(),
+  province: z.string().max(50).optional(),
+  categoryId: z.number().int().positive().optional(),
+  isPrivate: z.boolean().optional(),
+  coverImageUrl: z.string().url().optional(),
+});
+
+export const createNetworkPostSchema = z.object({
+  networkId: z.string().uuid(),
+  content: z.string().min(1).max(5000),
+  images: z.array(z.string().url()).max(5).optional(),
+});
+
+export const createNetworkCommentSchema = z.object({
+  postId: z.string().uuid(),
+  content: z.string().min(1).max(2000),
+  parentId: z.string().uuid().optional(),
+});
+
+// ─── Inquiry Schema ─────────────────────────────────────────
+
+export const createInquirySchema = z.object({
+  type: z.enum(["cooperation", "inquiry", "complaint", "suggestion"]),
+  name: z.string().min(2).max(100),
+  phone: z.string().regex(/^09\d{9}$/),
+  email: z.string().email().optional(),
+  subject: z.string().min(2).max(200),
+  message: z.string().min(1).max(5000),
+  attachments: z.array(z.string().url()).optional(),
+});
+
+// ─── Market Report Schema ───────────────────────────────────
+
+export const createMarketReportSchema = z.object({
+  title: z.string().min(2).max(250),
+  summary: z.string().min(1).max(1000),
+  content: z.string().min(1),
+  reportType: z.enum(["price_analysis", "supply_demand", "seasonal", "export_import", "general"]).optional(),
+  relatedCategoryIds: z.array(z.number().int()).optional(),
+  dataCharts: z.record(z.any()).optional(),
+  coverImageUrl: z.string().url().optional(),
+});
+
+export const addMarketPriceSchema = z.object({
+  productName: z.string().min(1).max(200),
+  categoryId: z.number().int().positive().optional(),
+  province: z.string().max(50).optional(),
+  county: z.string().max(50).optional(),
+  minPrice: z.number().positive(),
+  maxPrice: z.number().positive(),
+  avgPrice: z.number().positive(),
+  unit: z.string().min(1).max(20),
+  source: z.string().max(100).optional(),
+  recordedAt: z.string(),
+});
+
+// ─── Ad Schema ──────────────────────────────────────────────
+
+export const createAdSchema = z.object({
+  title: z.string().min(2).max(200),
+  type: z.enum(["banner", "sidebar", "inline", "popup"]).optional(),
+  placement: z.enum(["home_top", "home_sidebar", "market_top", "article_inline", "all_pages"]).optional(),
+  imageUrl: z.string().url().optional(),
+  targetUrl: z.string().url(),
+  startDate: z.string(),
+  endDate: z.string(),
+});
+
+// ─── Chat Schema ────────────────────────────────────────────
+
+export const sendMessageSchema = z.object({
+  conversationId: z.string().uuid(),
+  content: z.string().min(1).max(5000),
+  attachments: z.array(z.string().url()).optional(),
+});
+
+export const startConversationSchema = z.object({
+  userId: z.string().uuid(),
+  productId: z.string().uuid().optional(),
+  orderId: z.string().uuid().optional(),
+});
+
+// ─── Bid Schema ─────────────────────────────────────────────
+
+export const placeBidSchema = z.object({
+  rfqId: z.string().uuid(),
+  offeredPrice: z.number().positive(),
+  offeredQuantity: z.number().positive().optional(),
+  deliveryTime: z.string().max(100).optional(),
+  productId: z.string().uuid().optional(),
+  notes: z.string().max(2000).optional(),
+});
+
+// ─── Shipment Schema ────────────────────────────────────────
+
+export const createShipmentSchema = z.object({
+  orderId: z.string().uuid(),
+  carrierType: z.enum(["self", "third_party", "platform"]).optional(),
+  carrierName: z.string().max(100).optional(),
+  vehicleType: z.string().max(50).optional(),
+  isRefrigerated: z.boolean().optional(),
+  originAddress: z.string().min(1),
+  destinationAddress: z.string().min(1),
+  originProvince: z.string().max(50).optional(),
+  destinationProvince: z.string().max(50).optional(),
+  estimatedCost: z.number().positive().optional(),
+  notes: z.string().max(2000).optional(),
+});
+
+// ─── Webhook Schema ─────────────────────────────────────────
+
+export const createWebhookSchema = z.object({
+  url: z.string().url(),
+  events: z.array(z.string()).min(1),
+});
+
+// ─── API Key Schema ─────────────────────────────────────────
+
+export const createApiKeySchema = z.object({
+  name: z.string().min(2).max(100),
+  scopes: z.array(z.string()).optional(),
+  expiresAt: z.string().datetime().optional(),
+});

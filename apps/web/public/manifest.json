@@ -1,0 +1,44 @@
+{
+  "name": "پیکسل — شناسانه هوشمند کشاورزی",
+  "short_name": "پیکسل",
+  "description": "پلتفرم ملی تحول دیجیتال در حوزه کشاورزی ایران",
+  "lang": "fa",
+  "dir": "rtl",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#15803d",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["agriculture", "business", "shopping"],
+  "shortcuts": [
+    {
+      "name": "بازار",
+      "url": "/market",
+      "description": "بازار هوشمند کشاورزی"
+    },
+    {
+      "name": "دستیار هوشمند",
+      "url": "/ai/chat",
+      "description": "چت‌بات هوشمند پیکسل"
+    },
+    {
+      "name": "گزارش بازار",
+      "url": "/reports",
+      "description": "گزارش‌های تحلیلی بازار"
+    }
+  ]
+}
