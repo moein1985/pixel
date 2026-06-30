@@ -164,6 +164,7 @@ pixel/
 │   ├── roadmap-phase-3-cms-content.md
 │   ├── roadmap-phase-4-ai.md
 │   ├── roadmap-phase-5-optimization.md
+│   ├── roadmap-phase-6-agricultural-identity-map.md
 │   └── server-config.md
 ├── turbo.json
 ├── pnpm-workspace.yaml
@@ -182,8 +183,9 @@ pixel/
 | 3 | مدیریت محتوا، اخبار و گزارشات | ۲-۳ هفته | CMS، بلاگ، گزارش بازار، رتبه‌بندی، تبلیغات |
 | 4 | ماژول هوش مصنوعی | ۳-۴ هفته | چت‌بات فارسی، پیش‌بینی قیمت، تشخیص تصویر، تشخیص تقلب |
 | 5 | بهینه‌سازی و مقیاس‌پذیری | ۲-۳ هفته | PWA، سئو پیشرفته، داشبوردهای پیشرفته، لجستیک، یکپارچه‌سازی |
+| 6 | شناسنامه کشاورزی تعاملی (نقشه هوشمند) | ۲-۳ هفته | نقشه تعاملی ایران با drill-down استان→شهرستان، انیمیشن‌های Framer Motion، پنل اطلاعات + نمودارها |
 
-**مجموع تخمینی:** ۱۴-۲۰ هفته
+**مجموع تخمینی:** ۱۶-۲۳ هفته
 
 ---
 
@@ -197,12 +199,14 @@ pixel/
 | ۳ | CMS و محتوا | ✅ انجام‌شده | خرداد ۱۴۰۵ | Schema + Router (articles, reports, market prices, ads, networks, inquiries, ranking) + Frontend (news, reports, networks, contact) |
 | ۴ | هوش مصنوعی | ✅ انجام‌شده | خرداد ۱۴۰۵ | FastAPI service (chatbot, price prediction, image classification, disease detection, fraud, risk, recommendation) + tRPC router + Frontend + pytest |
 | ۵ | بهینه‌سازی و مقیاس‌پذیری | ✅ انجام‌شده | خرداد ۱۴۰۵ | PWA + SW + SEO + sitemap + REST API (trpc-openapi) + Socket.io + BullMQ + Redis cache + DB indexes + health/metrics + dashboards with Recharts |
+| ۶ | شناسنامه کشاورزی تعاملی (نقشه هوشمند) | 🔜 در صف اجرا | — | نقشه تعاملی ایران با drill-down استان→شهرستان، انیمیشن‌های Framer Motion، پنل اطلاعات + نمودارهای Recharts، mock data برای MVP |
 
 ### اولویت‌بندی گام‌های بعدی
 
-1. **استقرار روی سرور** — Deploy پروژه روی ۱۹۲.۱۶۸.۸۵.۹۲ با Docker Compose، اجرای migration و seed، تست سرویس‌ها
-2. **تست میدانی** — تست کامل جریان‌های کاربری با کاربران واقعی
-3. **پیکربندی نهایی** — تنظیم متغیرهای محیطی تولید، SSL، Nginx، firewall
+1. **استقرار روی سرور** — Deploy پروژه روی 192.168.85.110 با Docker Compose، اجرای migration و seed، تست سرویس‌ها ✅ انجام‌شده
+2. **شناسنامه کشاورزی تعاملی** — پیاده‌سازی فاز ۶: نقشه هوشمند ایران با drill-down و انیمیشن‌های حرفه‌ای
+3. **تست میدانی** — تست کامل جریان‌های کاربری با کاربران واقعی
+4. **پیکربندی نهایی** — تنظیم متغیرهای محیطی تولید، SSL، Nginx، firewall
 
 ---
 
