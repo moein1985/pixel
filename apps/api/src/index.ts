@@ -3,10 +3,8 @@ import cors from "@fastify/cors";
 import cookie from "@fastify/cookie";
 import websocket from "@fastify/websocket";
 import { fastifyTRPCPlugin } from "@trpc/server/adapters/fastify";
-import { createOpenApiFastifyPlugin } from "trpc-openapi";
 import { appRouter, type AppRouter } from "./trpc/router.js";
 import { createContext } from "./trpc/context.js";
-import { openApiDocument } from "./trpc/openapi.js";
 import { setupSocketServer } from "./lib/socket.js";
 import { registerHealthRoutes } from "./lib/health.js";
 
@@ -70,19 +68,6 @@ async function start() {
     },
   });
 
-  // REST API (OpenAPI)
-  await server.register(
-    createOpenApiFastifyPlugin({
-      path: "/api",
-      openApiDocument,
-    }),
-  );
-
-  // OpenAPI spec endpoint
-  server.get("/api/openapi.json", async () => {
-    return openApiDocument;
-  });
-
   // Health & Metrics
   registerHealthRoutes(server, metrics);
 
@@ -94,16 +79,15 @@ async function start() {
     return {
       name: "Pixel API",
       version: "1.0.0",
-      docs: "/api/openapi.json",
       trpc: "/trpc",
       health: "/health",
+      metrics: "/api/metrics",
     };
   });
 
   try {
     await server.listen({ port: PORT, host: "0.0.0.0" });
     console.log(`🚀 Pixel API running on http://0.0.0.0:${PORT}`);
-    console.log(`📚 OpenAPI spec at http://0.0.0.0:${PORT}/api/openapi.json`);
   } catch (err) {
     console.error("Failed to start server:", err);
     process.exit(1);

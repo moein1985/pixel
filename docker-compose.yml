@@ -71,6 +71,16 @@ services:
       SMS_PROVIDER: ${SMS_PROVIDER:-kavenegar}
       SMS_API_KEY: ${SMS_API_KEY:-placeholder}
       SMS_SENDER: ${SMS_SENDER:-1000xxxx}
+      AI_SERVICE_URL: http://ai:8000
+      MINIO_ENDPOINT: minio
+      MINIO_PORT: 9000
+      MINIO_USE_SSL: "false"
+      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER:-pixel_admin}
+      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-pixel_minio_strong}
+      MINIO_BUCKET: pixel-assets
+      PAYMENT_PROVIDER: zarinpal
+      PAYMENT_MERCHANT_ID: placeholder
+      PAYMENT_CALLBACK_URL: http://localhost:4000/api/payment/callback
     ports:
       - "4000:4000"
 
@@ -85,9 +95,9 @@ services:
     environment:
       NEXT_PUBLIC_API_URL: http://localhost:4000
       NEXT_PUBLIC_AI_URL: http://localhost:8000
-      NODE_ENV: production
+      NODE_ENV: development
     ports:
-      - "3000:3000"
+      - "3001:3000"
 
   ai:
     build:
@@ -104,7 +114,7 @@ services:
       AI_PORT: 8000
       NODE_API_URL: http://api:4000
     ports:
-      - "8000:8000"
+      - "8001:8000"
 
   worker:
     build:
@@ -130,7 +140,7 @@ services:
       - web
       - ai
     ports:
-      - "80:80"
+      - "8080:80"
     volumes:
       - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
 

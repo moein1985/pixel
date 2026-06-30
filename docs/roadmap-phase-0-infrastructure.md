@@ -16,33 +16,33 @@
 
 ```powershell
 # پذیرش host key (فقط اولین بار):
-echo y | plink -ssh -pw 1234321 moein@192.168.85.92 "echo connected"
+echo y | plink -ssh -pw 12321 pihole@192.168.85.110 "echo connected"
 
 # نصب Docker:
-plink -ssh -batch -pw 1234321 moein@192.168.85.92 "curl -fsSL https://get.docker.com | sudo sh"
+plink -ssh -batch -pw 12321 pihole@192.168.85.110 "curl -fsSL https://get.docker.com | sudo sh"
 
-# اضافه کردن moein به گروه docker:
-plink -ssh -batch -pw 1234321 moein@192.168.85.92 "sudo usermod -aG docker moein"
+# اضافه کردن pihole به گروه docker:
+plink -ssh -batch -pw 12321 pihole@192.168.85.110 "sudo usermod -aG docker pihole"
 
 # فعال‌سازی Docker:
-plink -ssh -batch -pw 1234321 moein@192.168.85.92 "sudo systemctl enable docker && sudo systemctl start docker"
+plink -ssh -batch -pw 12321 pihole@192.168.85.110 "sudo systemctl enable docker && sudo systemctl start docker"
 
 # بررسی نصب:
-plink -ssh -batch -pw 1234321 moein@192.168.85.92 "docker --version && docker compose version"
+plink -ssh -batch -pw 12321 pihole@192.168.85.110 "docker --version && docker compose version"
 ```
 
 ### ۱-۲. ایجاد مسیرهای پروژه
 
 ```powershell
-plink -ssh -batch -pw 1234321 moein@192.168.85.92 "sudo mkdir -p /opt/pixel/{data/postgres,data/redis,data/minio,backups,logs,nginx/conf.d,postgres}"
-plink -ssh -batch -pw 1234321 moein@192.168.85.92 "sudo chown -R moein:moein /opt/pixel"
+plink -ssh -batch -pw 12321 pihole@192.168.85.110 "sudo mkdir -p /opt/pixel/{data/postgres,data/redis,data/minio,backups,logs,nginx/conf.d,postgres}"
+plink -ssh -batch -pw 12321 pihole@192.168.85.110 "sudo chown -R pihole:pihole /opt/pixel"
 ```
 
 ### ۱-۳. نصب ابزارهای کمکی
 
 ```powershell
-plink -ssh -batch -pw 1234321 moein@192.168.85.92 "sudo apt-get update && sudo apt-get install -y curl wget htop vim ufw fail2ban"
-plink -ssh -batch -pw 1234321 moein@192.168.85.92 "sudo ufw allow 22/tcp && sudo ufw allow 80/tcp && sudo ufw allow 443/tcp && sudo ufw --force enable"
+plink -ssh -batch -pw 12321 pihole@192.168.85.110 "sudo apt-get update && sudo apt-get install -y curl wget htop vim ufw fail2ban"
+plink -ssh -batch -pw 12321 pihole@192.168.85.110 "sudo ufw allow 22/tcp && sudo ufw allow 80/tcp && sudo ufw allow 443/tcp && sudo ufw --force enable"
 ```
 
 ---
@@ -446,14 +446,14 @@ SET client_encoding TO 'UTF8';
 
 ```powershell
 # انتقال پوشه docker به سرور:
-pscp -pw 1234321 -batch -r .\docker\* moein@192.168.85.92:/opt/pixel/
+pscp -pw 12321 -batch -r .\docker\* pihole@192.168.85.110:/opt/pixel/
 ```
 
 ### ۶-۲. ایجاد فایل .env روی سرور
 
 ```powershell
 # ایجاد فایل .env با مقادیر امن:
-plink -ssh -batch -pw 1234321 moein@192.168.85.92 "cat > /opt/pixel/.env << 'EOF'
+plink -ssh -batch -pw 12321 pihole@192.168.85.110 "cat > /opt/pixel/.env << 'EOF'
 POSTGRES_USER=pixel
 POSTGRES_PASSWORD=ChangeMe_Str0ng_Pass!
 POSTGRES_DB=pixel
@@ -466,13 +466,13 @@ MINIO_BUCKET=pixel-assets
 API_PORT=4000
 JWT_SECRET=ChangeThisToRandom64CharString_a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6
 WEB_PORT=3000
-NEXT_PUBLIC_API_URL=http://192.168.85.92/api
-NEXT_PUBLIC_AI_URL=http://192.168.85.92/ai
+NEXT_PUBLIC_API_URL=http://192.168.85.110/api
+NEXT_PUBLIC_AI_URL=http://192.168.85.110/ai
 AI_PORT=8000
 SMS_API_KEY=placeholder
 SMS_SENDER=1000xxxx
 PAYMENT_MERCHANT_ID=placeholder
-PAYMENT_CALLBACK_URL=http://192.168.85.92/api/payment/callback
+PAYMENT_CALLBACK_URL=http://192.168.85.110/api/payment/callback
 EOF"
 ```
 
@@ -480,21 +480,21 @@ EOF"
 
 ```powershell
 # فقط سرویس‌های پایه (بدون appها که هنوز ساخته نشدند):
-plink -ssh -batch -pw 1234321 moein@192.168.85.92 "cd /opt/pixel && docker compose up -d postgres redis minio nginx"
+plink -ssh -batch -pw 12321 pihole@192.168.85.110 "cd /opt/pixel && docker compose up -d postgres redis minio nginx"
 
 # بررسی وضعیت:
-plink -ssh -batch -pw 1234321 moein@192.168.85.92 "cd /opt/pixel && docker compose ps"
+plink -ssh -batch -pw 12321 pihole@192.168.85.110 "cd /opt/pixel && docker compose ps"
 ```
 
 ### ۶-۴. ایجاد MinIO Bucket
 
 ```powershell
 # نصب mc (MinIO Client) روی سرور:
-plink -ssh -batch -pw 1234321 moein@192.168.85.92 "docker run --rm minio/mc alias set local http://192.168.85.92:9000 pixel_admin ChangeMe_MinIO_Str0ng!"
+plink -ssh -batch -pw 12321 pihole@192.168.85.110 "docker run --rm minio/mc alias set local http://192.168.85.110:9000 pixel_admin ChangeMe_MinIO_Str0ng!"
 
-plink -ssh -batch -pw 1234321 moein@192.168.85.92 "docker run --rm minio/mc mb local/pixel-assets"
+plink -ssh -batch -pw 12321 pihole@192.168.85.110 "docker run --rm minio/mc mb local/pixel-assets"
 
-plink -ssh -batch -pw 1234321 moein@192.168.85.92 "docker run --rm minio/mc anonymous set download local/pixel-assets"
+plink -ssh -batch -pw 12321 pihole@192.168.85.110 "docker run --rm minio/mc anonymous set download local/pixel-assets"
 ```
 
 ---
@@ -516,23 +516,23 @@ pnpm vitest run tests/infrastructure/db.test.ts
 - بررسی وجود extensionهای pg_trgm, unaccent, uuid-ossp
 
 **تست Nginx routing:**
-- درخواست به `http://192.168.85.92/api/health` باید به API برسد
-- درخواست به `http://192.168.85.92/` باید به Next.js برسد (وقتی راه‌اندازی شد)
+- درخواست به `http://192.168.85.110/api/health` باید به API برسد
+- درخواست به `http://192.168.85.110/` باید به Next.js برسد (وقتی راه‌اندازی شد)
 
 ### ۷-۲. تست‌های استقرار
 
 ```powershell
 # تست health check تمام سرویس‌ها:
-plink -ssh -batch -pw 1234321 moein@192.168.85.92 "cd /opt/pixel && docker compose ps --format json | jq '.[] | {Name: .Name, Status: .Status}'"
+plink -ssh -batch -pw 12321 pihole@192.168.85.110 "cd /opt/pixel && docker compose ps --format json | jq '.[] | {Name: .Name, Status: .Status}'"
 
 # تست backup دیتابیس:
-plink -ssh -batch -pw 1234321 moein@192.168.85.92 "docker exec pixel-postgres-1 pg_dump -U pixel pixel > /opt/pixel/backups/test_backup.sql && echo 'Backup OK'"
+plink -ssh -batch -pw 12321 pihole@192.168.85.110 "docker exec pixel-postgres-1 pg_dump -U pixel pixel > /opt/pixel/backups/test_backup.sql && echo 'Backup OK'"
 
 # تست restore:
-plink -ssh -batch -pw 1234321 moein@192.168.85.92 "docker exec -i pixel-postgres-1 psql -U pixel -c 'CREATE DATABASE test_restore;' && docker exec -i pixel-postgres-1 psql -U pixel test_restore < /opt/pixel/backups/test_backup.sql && echo 'Restore OK'"
+plink -ssh -batch -pw 12321 pihole@192.168.85.110 "docker exec -i pixel-postgres-1 psql -U pixel -c 'CREATE DATABASE test_restore;' && docker exec -i pixel-postgres-1 psql -U pixel test_restore < /opt/pixel/backups/test_backup.sql && echo 'Restore OK'"
 
 # پاکسازی تست:
-plink -ssh -batch -pw 1234321 moein@192.168.85.92 "docker exec -i pixel-postgres-1 psql -U pixel -c 'DROP DATABASE test_restore;'"
+plink -ssh -batch -pw 12321 pihole@192.168.85.110 "docker exec -i pixel-postgres-1 psql -U pixel -c 'DROP DATABASE test_restore;'"
 ```
 
 ### ۷-۳. چک‌لیست تأیید فاز ۰

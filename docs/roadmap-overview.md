@@ -242,10 +242,10 @@ pixel/
 ## اطلاعات سرور
 
 - **OS:** Ubuntu
-- **IP:** 192.168.85.92
+- **IP:** 192.168.85.110
 - **SSH Port:** 22
-- **User:** moein
-- **Password:** 1234321
+- **User:** pihole
+- **Password:** 12321
 - **اتصال غیرتعاملی:** از طریق `plink` (جزئیات در `server-config.md`)
 
 ---

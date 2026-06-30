@@ -29,8 +29,7 @@
     "jsonwebtoken": "^9.0.0",
     "argon2": "^0.40.0",
     "crypto-js": "^4.2.0",
-    "minio": "^8.0.0",
-    "trpc-openapi": "^2.0.0"
+    "minio": "^8.0.0"
   },
   "devDependencies": {
     "tsx": "^4.0.0",

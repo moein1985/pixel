@@ -1,12 +1,16 @@
 node_modules/
+**/node_modules/
 .next/
+**/.next/
 dist/
+**/dist/
 .git/
 .env
 .env.local
 .env.production
 *.log
 .turbo/
+**/.turbo/
 coverage/
 *.tsbuildinfo
 .DS_Store

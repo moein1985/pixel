@@ -5,10 +5,10 @@
 | مورد | مقدار |
 |---|---|
 | سیستم‌عامل | Ubuntu |
-| IP | 192.168.85.92 |
+| IP | 192.168.85.110 |
 | SSH Port | 22 |
-| Username | moein |
-| Password | 1234321 |
+| Username | pihole |
+| Password | 12321 |
 
 ---
 
@@ -30,9 +30,9 @@ winget install PuTTY.PuTTY
 
 ```powershell
 # متغیرهای پایه — در هر session یکبار تنظیم کنید:
-$SERVER = "192.168.85.92"
-$USER = "moein"
-$PASS = "1234321"
+$SERVER = "192.168.85.110"
+$USER = "pihole"
+$PASS = "12321"
 
 # اجرای دستور روی سرور (غیرتعاملی):
 plink -ssh -batch -pw $PASS ${USER}@${SERVER} "command here"
@@ -116,8 +116,8 @@ JWT_SECRET=<random-64-char-string>
 
 # Web
 WEB_PORT=3000
-NEXT_PUBLIC_API_URL=http://192.168.85.92/api
-NEXT_PUBLIC_AI_URL=http://192.168.85.92/ai
+NEXT_PUBLIC_API_URL=http://192.168.85.110/api
+NEXT_PUBLIC_AI_URL=http://192.168.85.110/ai
 
 # AI Service
 AI_PORT=8000
@@ -128,7 +128,7 @@ SMS_SENDER=<number>
 
 # Payment Gateway
 PAYMENT_MERCHANT_ID=<merchant-id>
-PAYMENT_CALLBACK_URL=http://192.168.85.92/api/payment/callback
+PAYMENT_CALLBACK_URL=http://192.168.85.110/api/payment/callback
 ```
 
 ---
@@ -141,9 +141,9 @@ PAYMENT_CALLBACK_URL=http://192.168.85.92/api/payment/callback
 # deploy.ps1 — اسکریپت استقرار پروژه روی سرور
 
 param(
-    [string]$Server = "192.168.85.92",
-    [string]$User = "moein",
-    [string]$Pass = "1234321"
+    [string]$Server = "192.168.85.110",
+    [string]$User = "pihole",
+    [string]$Pass = "12321"
 )
 
 $PLINK = "plink -ssh -batch -pw $Pass"
@@ -169,19 +169,19 @@ Write-Host "Deploy complete."
 
 ```powershell
 # مشاهده وضعیت کانتینرها:
-plink -ssh -batch -pw 1234321 moein@192.168.85.92 "cd /opt/pixel && docker compose ps"
+plink -ssh -batch -pw 12321 pihole@192.168.85.110 "cd /opt/pixel && docker compose ps"
 
 # مشاهده لاگ‌ها:
-plink -ssh -batch -pw 1234321 moein@192.168.85.92 "cd /opt/pixel && docker compose logs -f --tail=100"
+plink -ssh -batch -pw 12321 pihole@192.168.85.110 "cd /opt/pixel && docker compose logs -f --tail=100"
 
 # ریستارت یک سرویس:
-plink -ssh -batch -pw 1234321 moein@192.168.85.92 "cd /opt/pixel && docker compose restart api"
+plink -ssh -batch -pw 12321 pihole@192.168.85.110 "cd /opt/pixel && docker compose restart api"
 
 # ورود به کانتینر API:
-plink -ssh -batch -pw 1234321 moein@192.168.85.92 "cd /opt/pixel && docker compose exec api bash"
+plink -ssh -batch -pw 12321 pihole@192.168.85.110 "cd /opt/pixel && docker compose exec api bash"
 
 # backup دیتابیس:
-plink -ssh -batch -pw 1234321 moein@192.168.85.92 "cd /opt/pixel && docker compose exec postgres pg_dump -U pixel pixel > /opt/pixel/backups/db_$(date +%Y%m%d).sql"
+plink -ssh -batch -pw 12321 pihole@192.168.85.110 "cd /opt/pixel && docker compose exec postgres pg_dump -U pixel pixel > /opt/pixel/backups/db_$(date +%Y%m%d).sql"
 ```
 
 ---
@@ -329,7 +329,7 @@ upstream ai_upstream {
 
 server {
     listen 80;
-    server_name 192.168.85.92;
+    server_name 192.168.85.110;
 
     # API
     location /api/ {

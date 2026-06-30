@@ -1,4 +1,4 @@
-FROM node:20-alpine AS base
+FROM node:20-slim AS base
 RUN corepack enable && corepack prepare pnpm@9.0.0 --activate
 
 FROM base AS deps
@@ -7,22 +7,26 @@ COPY package.json pnpm-workspace.yaml pnpm-lock.yaml* ./
 COPY apps/api/package.json ./apps/api/
 COPY packages/db/package.json ./packages/db/
 COPY packages/shared/package.json ./packages/shared/
-RUN pnpm install --frozen-lockfile || pnpm install
-
-FROM base AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
-RUN pnpm --filter @pixel/api build
+COPY packages/ui/package.json ./packages/ui/
+RUN pnpm install --shamefully-hoist --ignore-scripts --config.platform=linux --config.arch=x64
 
 FROM base AS runner
 WORKDIR /app
 ENV NODE_ENV=production
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/apps/api/dist ./apps/api/dist
-COPY --from=builder /app/packages ./packages
-COPY --from=builder /app/apps/api/package.json ./apps/api/package.json
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/pnpm-workspace.yaml ./pnpm-workspace.yaml
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/apps/api/node_modules ./apps/api/node_modules
+COPY --from=deps /app/packages/db/node_modules ./packages/db/node_modules
+COPY --from=deps /app/packages/shared/node_modules ./packages/shared/node_modules
+COPY --from=deps /app/packages/ui/node_modules ./packages/ui/node_modules
+COPY apps/api/src ./apps/api/src
+COPY apps/api/package.json ./apps/api/package.json
+COPY packages/db/src ./packages/db/src
+COPY packages/db/package.json ./packages/db/package.json
+COPY packages/shared/src ./packages/shared/src
+COPY packages/shared/package.json ./packages/shared/package.json
+COPY packages/ui/src ./packages/ui/src
+COPY packages/ui/package.json ./packages/ui/package.json
+COPY package.json ./
+COPY pnpm-workspace.yaml ./
 EXPOSE 4000
-CMD ["node", "apps/api/dist/index.js"]
+CMD ["npx", "tsx", "apps/api/src/index.ts"]

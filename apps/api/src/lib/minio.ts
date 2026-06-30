@@ -7,7 +7,7 @@ const accessKey = process.env.MINIO_ACCESS_KEY ?? "minioadmin";
 const secretKey = process.env.MINIO_SECRET_KEY ?? "minioadmin";
 
 export const minio = new MinioClient({
-  endpoint,
+  endPoint: endpoint,
   port,
   useSSL,
   accessKey,
